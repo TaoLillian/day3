@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to{
+            opacity: 0 ; /** oapcity 不透明度为 0  **/
+            transform: translateX(180px); /** transform表示位移， translateX x方向上的位移 **/
+
+        }
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.8s ease;
+        }
+
+        .my-enter,
+        .my-leave-to{
+            opacity: 0 ; /** oapcity 不透明度为 0  **/
+            transform: translateY(180px); /** transform表示位移， translateX x方向上的位移 **/
+
+        }
+        .my-enter-active,
+        .my-leave-active{
+            transition: all 0.8s ease;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="切换" @click="flag1 =!flag1">
+
+    <transition>
+        <h3 v-if="flag1">这是一个快乐的h3</h3>
+    </transition>
+
+    <input type="button" value="切ha换" @click="flag2=!flag2">
+    <transition name="my">
+        <h3 v-if="flag2">这是一个快乐的h3</h3>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag1:true,
+            flag2:true
+        },
+        methods:{}
+    });
+</script>
+</body>
+</html>

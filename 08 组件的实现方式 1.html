@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+<div id="app">
+    <!-- 使用组件名直接调用 -->
+    <my-com1></my-com1>
+</div>
+<script>
+    //     //vue.extend 创建全局组件
+    //     var com1 = Vue.extend({
+    //         template:'<h1>这是一个快乐的h1</h1>'  //通过template属性 定义组件要展示的html结构
+    //     })
+    // //如果在使用 Vue.component 定义全局组件的时候使用的是驼峰命名法，在调用时需要将大写的驼峰改为小写字母，并且用 - 连接 。
+    //     //如果没用使用驼峰命名法，则直接拿来名字使用即可。
+    //     Vue.component('myCom1',com1);
+
+
+    //省去中间过度的变量，简写
+    //第一个参数是，组件名， 第二个参数是一个组件，定义组件的内容。
+    Vue.component('myCom1', Vue.extend({
+        template: '<h1>这是一个快乐的h1</h1>',
+
+    }));
+
+
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        filters: {},
+        directives: {}
+    })
+</script>
+</body>
+</html>

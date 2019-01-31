@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+
+<div id="app">
+    <a href="" @click.prevent="comName='login'">登录</a>
+    <a href="" @click.prevent="comName='regist'">注册</a>
+    <!-- Vue component 提供的展示相应组件的名字-->
+    <!--  component 是一个占位符，:is 属性用来指定要展示的组件的名字。-->
+<component :is="comName"></component>
+</div>
+<!-- Vue提供的标签
+  component ,template, transition, transition-group
+-->
+
+<template id="logintemp">
+    <div>
+        <h3>{{msg}}</h3>
+    </div>
+</template>
+<template id="regist">
+    <div>
+        <h3>{{msg}}</h3>
+    </div>
+</template>
+<script>
+    Vue.component('login',{
+        template:'#logintemp',
+        data:function(){
+            return {msg:'欢迎登录'}
+        }
+    })
+    Vue.component('regist',{
+        template:'#regist',
+        data:function(){
+            return {msg:'欢迎注册'}
+        }
+    })
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            comName:'login' //表示要绑定的组件的名称
+        },
+        methods:{},
+        filters:{},
+        directives:{}
+    })
+</script>
+</body>
+</html>

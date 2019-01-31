@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+
+<div id="app">
+    <!--
+    flag作为切换的标志，采用 v-if 或者 v-show 只能实现两个组件之间的切换。
+    在添加点击事件时，要阻止点击链接它刷新，采用@click.prevent 来阻止刷新
+    -->
+    <a href="" @click.prevent="flag=!flag">登录</a>
+    <a href="" @click.prevent="flag=!flag">注册</a>
+    <login v-if="flag"></login>
+    <regist v-else="flag"></regist>
+</div>
+
+<!--定义组件显示在HTML里的样式。-->
+<template id="logintemp">
+    <div>
+        <h3>{{msg}}</h3>
+    </div>
+</template>
+<template id="regist">
+    <div>
+        <h3>{{msg}}</h3>
+    </div>
+</template>
+<script>
+    Vue.component('login',{
+        template:'#logintemp',
+        data:function(){
+            return {msg:'欢迎登录'}
+        }
+    })
+    Vue.component('regist',{
+        template:'#regist',
+        data:function(){
+            return {msg:'欢迎注册'}
+        }
+    })
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:false
+        },
+        methods:{},
+        filters:{},
+        directives:{}
+    })
+</script>
+</body>
+</html>

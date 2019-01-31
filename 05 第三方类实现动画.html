@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link href="lib/animate.css" rel="stylesheet">
+</head>
+<body>
+<!--需求-->
+<div id="app">
+    <input type="button" value="切换" @click="flag=!flag">
+    <!--这是利用 animate.css 第三方包来实现动画效果。-->
+    <!--
+    duration 用来设置动画的时间长度，： 表示属性的绑定，
+    当enter 和 leave 时间长度相同时，可以简写为 :duration={1000}
+    -->
+    <transition enter-active-class=" bounceIn" leave-active-class="bounceOut"  :duration="{enter:1000,leave:200}">
+        <h3 v-if="flag" class="animated">这是一个快乐的h3</h3>
+    </transition>
+    <!--在实现的时候必须加上 animated ，加在类名前添加 animated 或者 在元素里添加class="animated"-->
+   <!--
+    <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+        <h3 v-if="flag">这是一个快乐的h3</h3>
+    </transition>
+    -->
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:true
+        },
+        methods:{}
+    });
+</script>
+</body>
+</html>

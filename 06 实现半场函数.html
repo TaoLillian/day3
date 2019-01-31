@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+    <style>
+        .ball{
+            height: 15px; /* 高*/
+            width: 15px;  /* 宽*/
+           border-radius:50%;        /* 圆角*/
+            background-color: #c9302c;    /* 颜色 */
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="加入购物车" @click="flag = !flag">
+    <transition
+    @before-enter="beforeenter"
+    @enter="enter"
+    @after-enter="afterenter">
+        <div class="ball" v-show="flag"></div>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:false
+
+        },
+        methods:{
+            //动画开始之前对象所在的位置和状态设置
+            beforeenter(el){
+                el.style.transform="translate(0,0)"
+            },
+            //对象想要哪些动画设置，状态，样式，位置设置
+            //done 函数 是对 afterenter 函数的引用，减少动画结束后的延迟
+            //offsetHeight 可以是offsetWeidth 等，是添加一个动画路径，使动画更加顺畅
+            enter(el ,done){
+                el.offsetHeight
+                el.style.transform="translate(330px,500px)"
+                el.style.transition='all 1s ease'
+                done()
+            },
+            //当对象完成动画过后的状态。
+            afterenter(el){
+                this.flag=!this.flag
+            }
+        },
+        filters:{},
+        directives:{}
+    })
+</script>
+</body>
+</html>

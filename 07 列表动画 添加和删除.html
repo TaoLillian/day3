@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+    <style>
+        li{
+            border: 1px #2e6da4 dashed; /*dashed 虚线 */
+            margin: 5px;                /*margin 边距 */
+            line-height: 35px;          /*line-height 行高 */
+            padding-left: 5px;          /*padding-left 元素的左内边距 */
+            font-size: 12px;
+            width: 100%;
+
+        }
+        /* hover 是覆盖在上面的动作， transition: all 0.8s ease; 是设置颜色的渐变 */
+        li:hover{
+            background-color: #2e6da4;
+            transition: all 0.8s ease;
+        }
+
+        /* 切记，是 .v-enter , 点不能忘记 */
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.6s ease;
+        }
+
+        /* .v-move ， .v-leave-active 是固定写法*/
+        /* .v-move 新功能，用实现列表的平滑过渡, 配合使用下面的 .v-leave-active 实现删除时，后续对象渐渐的向上移动 */
+        .v-move{
+            transition: all 0.8s ease;
+        }
+        /* position: absolute 绝对定位, 默认的宽度就是最小值，也可以自己设置一个宽度值 */
+        .v-leave-active{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <div align="center">
+        Id:<input type="text" v-model="id">
+        Name:<input type="text" v-model="name">
+        <input type="button" value="添加" @click="add">
+    </div>
+<!-- 对于用v-for 渲染的数据组，不能用 transition 来包裹，只能用 transition-group 来包裹。-->
+    <!--<ul>-->
+        <!-- appear 属性，用来设置 transition-group 在页面刚展示出来时的效果，以动画的形式出现
+             tag 属性, 将我们的对象渲染到tag所表示的标签里，下面示例是将对象渲染到 <ul> 标签里面。
+             如果不设置，默认是渲染到<span>标签里面，但是这样是不合理的。
+        -->
+        <transition-group appear tag="ul">
+            <li v-for="(item,i) in list" :key="item.id" @click="del(item.i)">
+                {{ item.id }}---{{ item.name }}
+            </li>
+        </transition-group>
+    <!--</ul>-->
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            id:'',
+            name:'',
+            list:[
+                {id:1,name:'小甲鱼'},
+                {id:2,name:'李兴华'},
+                {id:3,name:'黑马'}
+            ]
+        },
+        methods:{
+            add(){
+                this.list.push({id:this.id,name:this.name})
+                this.id = this.name = ''
+            },
+            del(i){
+                this.list.splice(i,1)
+            }
+        },
+        filters:{},
+        directives:{}
+    })
+</script>
+</body>
+</html>

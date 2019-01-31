@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+<div id="app">
+    <!-- 使用标签形式引入组件。 -->
+    <mycom2></mycom2>
+</div>
+<!-- template 单独定义 -->
+<template id="temp2">
+    <div>
+        <h3> 这还是一个快乐的h3</h3>
+        <span> hahaha</span>
+    </div>
+</template>
+
+<script>
+
+    var vm = new Vue({
+        el:'#app',
+        data:{},
+        methods:{},
+        filters:{},
+        directives:{},
+        //这是定义内部私有组件， 同样也可以将 template 元素放到 不被 vue 控制的区域单独定义 。
+        components:{
+            mycom2:{
+                template:'#temp2'
+            }
+        }
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

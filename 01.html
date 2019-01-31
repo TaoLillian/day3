@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <script src="./lib/vue-resource-1.3.4.js"></script>
+    <link rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <div align="center">
+
+        <label>
+            name:<input type="text" v-model="name">
+        </label>
+        <label>
+            id:<input type="button" value="添加" @click="add">
+        </label>
+    </div>
+    <table align="center" class="table">
+        <thead>
+        <tr>
+            <td width="250px">id</td>
+            <td width="250px">name</td>
+            <td width="250px">ctime</td>
+            <td width="250px">operation</td>
+        </tr>
+        </thead>
+        <tr v-for="item in list" :key="item.id">
+            <td width="250px">{{ item.id }}</td>
+            <td width="250px">{{ item.name }}</td>
+            <td width="250px">{{ item.ctime }}</td>
+            <td width="250px"><a href="#" @click.prevent="del(item.id)"> 删除</a></td>
+        </tr>
+
+
+    </table>
+</div>
+<script>
+    //利用全局配置设置默认的值，将服务器的根域名保存，后面的代码不再手动添加根域名
+    //Vue.http.option.root='http://...../';
+    //全局启用 emlulateJSON 选项
+    //Vue.http.option.emlulateJSON = true;
+    var vm = new Vue({
+        el:'#app',
+        data:{
+
+            name:'',
+            list: [
+                {id: 1, name: '奔驰',ctime:new Date()},
+                {id: 2, name: '宝马',ctime:new Date()}
+            ]
+        },
+        //在数据进入页面之前，在vm初始化之后，将调用 getalllist（）方法获得服务器的数据
+        created(){
+           this.getalllist()
+    },
+        //初始化 获得服务器的数据 .then 拿到返回的数据
+        methods:{
+            //没有接口实验，不敢保证一定正确
+            getalllist(){
+                //如果使用上面根域名的方法，那个在添加子域名时的开头，不能加 / 就是使用相对路径，否则会导致无法与根域名相结合
+                // 例如 ('/id') 不会进行拼接
+                // ('id') 进行拼接
+                this.$http.get('url').then(result => {
+                    if(this.result.body.state === 0){
+                    //成功啦
+                    this.list = result.body.message
+                }else{
+                        //失败了
+                    alert('失败了，好气呀')
+                }
+                } )
+            },
+            //添加数据，利用post方法,将需要上传的对象添加到服务器
+            add(){
+                //emlulateJSON 是一个模板，将数据模板，传入服务器，在全局启用后，就不再需要写在下面 {emulataJSON:true}
+                this.$http.post('url',{name:this.name},{emulataJSON:true}).then(result => {
+                    if(this.result.body.state === 0){
+                    //成功啦
+                    this.getalllist()
+                    //清空
+                    this.name=''
+                }else{
+                    //失败了
+                }
+                })
+            },
+            //删除数据，集中处理业务逻辑
+            del(id){
+                this.$http.get('url' + 'id').then(result => {
+                    if(this.result.body.state === 0){
+                    //成功啦
+                    this.list = result.body.message
+                }else{
+                    //失败了
+                    alert('失败了，好气呀')
+                }
+                })
+            }
+        },
+
+    });
+</script>
+</body>
+</html>

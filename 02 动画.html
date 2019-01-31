@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+<!--需求-->
+<div id="app">
+    <!--关于v-if和v-show的差别，这两个都是进行元素隐藏和显示的
+         v-if 原理是，ture，则创建对象，斗则，不创建对象。对于经常进行数据切换的不太适合，它的切换成本比较高，但是它的
+         初始渲染代价很小。
+         v-show 原理是 这个元素一直存在，true则显示元素，false，则隐藏元素，但是元素是一直存在的。当元素需要多次切换时，
+         适合使用，但是当一个元素从来没有显示过时，他的初始渲染代价较大。
+     -->
+    <input type="button" value="切换" @click="flag=!flag">
+    <h3 v-if="flag">这是一个快乐的h3</h3>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:true
+        },
+        methods:{}
+    });
+</script>
+</body>
+</html>

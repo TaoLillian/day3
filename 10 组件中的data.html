@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+<div id="app">
+<mycom></mycom>
+</div>
+<template id="temp">
+    <div>
+        <input type="button" value="计数器" @click="add">
+        <h3>{{count}}--{{sub}}</h3>
+    </div>
+
+</template>
+<script>
+    var object= {count : 0 };
+    Vue.component('mycom',{
+        template:'#temp',
+
+        //组件中定义数据 data 必须使用 函数形式。data:function(){} 方式来定义数据。 并且在data中返回一个对象。
+        //对象中可以包含很多个属性。return {count:0,sub:10}。
+        data:function(){
+
+            return {count:0,sub:10}
+        }  ,
+        methods:{
+            add(){
+                this.count++
+                this.sub--
+                if(this.sub <= 0){
+                    this.count=10
+                    this.sub=0
+                }
+            }
+        }
+
+    })
+    var vm = new Vue({
+        el:'#app',
+        data:{},
+        methods:{},
+        filters:{},
+        directives:{}
+    })
+</script>
+</body>
+</html>
